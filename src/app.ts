@@ -1,13 +1,22 @@
 import express from 'express';
+import mongoose from 'mongoose'
 import dotenv from "dotenv";
 
+import { router } from './router';
+
 dotenv.config();
-
-const port = process.env.PORT || 3000;
-
 const app = express();
-app.get('/', (req, res) => res.send('Express + TypeScript Server'));
+app.use(router)
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-});
+if(!process.env.MONGODB_URL)
+  throw new Error('MONGODB_URL in not provided')
+
+mongoose
+	.connect(process.env.MONGODB_URL)
+	.then(() => {
+    const port = process.env.PORT || 3000
+		app.listen(port, () => {
+			console.log(`Server is running http://localhost:${port}`);
+		});
+	})
+	.catch((err) => console.log(err));
