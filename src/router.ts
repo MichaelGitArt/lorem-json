@@ -1,6 +1,8 @@
 import { Router } from 'express'
 
-import { createPiece, deletePiece, getPieces, getSinglePiece } from './controllers/piece'
+import * as pieceController from './controllers/piece'
+import * as authController from './controllers/auth'
+import * as apiController from './controllers/api'
 
 const router = Router()
 
@@ -10,13 +12,17 @@ router.get('/', (req, res) => {
   `)
 })
 
-router.get('/pieces', getPieces)
+// External usage roues
+router.get('/api/piece/:id', apiController.getPiece)
 
-router.post('/pieces', createPiece)
+// Service routes
+router.post('/get-pieces', pieceController.getPieces)
+router.post('/create-piece', pieceController.createPiece)
+router.delete('/delete-piece/:id', pieceController.deletePiece)
+router.get('/get-piece/:id', pieceController.getSinglePiece)
 
-router.get('/pieces/:id', getSinglePiece)
-
-router.delete('/pieces/:id', deletePiece)
+router.post('/login', authController.login)
+router.post('/register', authController.register)
 
 export {
   router,

@@ -1,0 +1,22 @@
+@hostname = {{$dotenv SERVER_DOMAIN}}
+@port = {{$dotenv PORT}}
+@host = http://{{hostname}}:{{port}}
+
+
+POST {{host}}/register
+content-type: application/json
+
+{
+  "username": "sasha",
+  "password": "qq"
+}
+
+###
+
+POST {{host}}/login
+content-type: application/json
+
+{
+  "username": "sasha",
+  "password": "qq"
+}

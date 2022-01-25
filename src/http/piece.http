@@ -13,7 +13,8 @@ content-type: application/json
 
 {
   "name": "Name",
-  "json": "[{\"value\": 10}]"
+  "json": "[{\"value\": 10}]",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWVmZjgzMDA3MGM5NTdkOWEzODI4NTEiLCJpYXQiOjE2NDMxMTY1OTl9.LPjoMs1u59TQPnHMB5MqTpXRAdh4qkJ6DwW6F9KEgPM"
 }
 
 ###
