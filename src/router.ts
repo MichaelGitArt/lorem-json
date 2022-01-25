@@ -1,11 +1,23 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
-import { getPieces } from './controllers/piece';
+import { createPiece, deletePiece, getPieces, getSinglePiece } from './controllers/piece'
 
-const router = Router();
+const router = Router()
 
-router.get('/', getPieces);
+router.get('/', (req, res) => {
+  res.send(`
+    <a href="/pieces">Pieces</a>
+  `)
+})
+
+router.get('/pieces', getPieces)
+
+router.post('/pieces', createPiece)
+
+router.get('/pieces/:id', getSinglePiece)
+
+router.delete('/pieces/:id', deletePiece)
 
 export {
-  router
+  router,
 }

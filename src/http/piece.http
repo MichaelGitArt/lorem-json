@@ -1,0 +1,25 @@
+@hostname = {{$dotenv SERVER_DOMAIN}}
+@port = {{$dotenv PORT}}
+@host = http://{{hostname}}:{{port}}
+
+###
+
+GET {{host}}/pieces
+
+###
+
+POST {{host}}/pieces
+content-type: application/json
+
+{
+  "name": "Name",
+  "json": "[{\"value\": 10}]"
+}
+
+###
+
+DELETE {{host}}/pieces/61ef3ed416a48c21611c5972
+
+###
+
+GET {{host}}/pieces/61ef3ed416a48c21611c5972

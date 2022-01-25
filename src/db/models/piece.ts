@@ -1,7 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose'
 
 const pieceSchema = new Schema({
-  name: String
-});
+  name: String,
+  json: String,
+})
 
-export const Piece = model('Piece', pieceSchema);
+export const Piece = model('Piece', pieceSchema)
