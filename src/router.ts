@@ -12,15 +12,17 @@ router.get('/', (req, res) => {
   `)
 })
 
-// External usage roues
+// External usage routes
 router.get('/api/piece/:id', apiController.getPiece)
 
-// Service routes
+// Piece routes
 router.post('/get-pieces', pieceController.getPieces)
 router.post('/create-piece', pieceController.createPiece)
-router.delete('/delete-piece/:id', pieceController.deletePiece)
-router.get('/get-piece/:id', pieceController.getSinglePiece)
+router.post('/delete-piece', pieceController.deletePiece)
+router.post('/get-piece', pieceController.getPiece)
+router.post('/update-piece', pieceController.updatePiece)
 
+// Auth routes
 router.post('/login', authController.login)
 router.post('/register', authController.register)
 

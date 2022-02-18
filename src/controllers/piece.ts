@@ -40,7 +40,7 @@ export const createPiece: RequestHandler = async(req, res) => {
 }
 
 export const deletePiece: RequestHandler = async(req, res) => {
-  const { id, token } = req.params
+  const { id, token } = req.body
   const tokenData = decodeJWT(token) as any
 
   const { deletedCount } = await Piece.remove({
@@ -53,16 +53,62 @@ export const deletePiece: RequestHandler = async(req, res) => {
   })
 }
 
-export const getSinglePiece: RequestHandler = async(req, res) => {
+export const getPiece: RequestHandler = async(req, res) => {
   const { id } = req.body
-  console.warn('id, ', id)
 
-  const piece = await Piece.findOne({
-    _id: id,
-  })
+  const piece = await Piece
+    .findById(id)
+    .catch(() => {
+    // eslint-disable-next-line no-console
+      console.log('Piece not found')
+    })
+
+  if (!piece) {
+    return res.json({
+      success: false,
+    })
+  }
 
   return res.json({
     data: piece,
+    success: true,
+  })
+}
+
+export const updatePiece: RequestHandler = async(req, res) => {
+  const {
+    id,
+    token,
+    piece,
+  } = req.body
+
+  const tokenData = decodeJWT(token) as any
+
+  console.warn('id', id, tokenData)
+
+  const existPiece = await Piece
+    .findOne({
+      _id: id,
+      user: tokenData.userId,
+    })
+    .catch(() => {
+    // eslint-disable-next-line no-console
+      console.log('Piece not found')
+    })
+
+  if (!existPiece) {
+    return res.json({
+      success: false,
+    })
+  }
+
+  existPiece.json = piece.json
+  existPiece.name = piece.name
+
+  await existPiece.save()
+
+  return res.json({
+    data: existPiece,
     success: true,
   })
 }
