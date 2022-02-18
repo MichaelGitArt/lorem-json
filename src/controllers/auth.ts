@@ -17,6 +17,9 @@ export const login: RequestHandler = async(req, res) => {
 
   const user = await User.findOne({
     username,
+  }).catch(() => {
+    // eslint-disable-next-line no-console
+    console.log('Action Failed')
   })
 
   if (!user)
@@ -51,7 +54,16 @@ export const register: RequestHandler = async(req, res) => {
   const user = await User.create({
     username,
     password: hashedPassword,
+  }).catch(() => {
+    // eslint-disable-next-line no-console
+    console.log('Action Failed')
   })
+
+  if (!user) {
+    return res.json({
+      success: false,
+    })
+  }
 
   const token = createJWT({ user })
 
